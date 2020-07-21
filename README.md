@@ -1,4 +1,4 @@
-# jkLatex
+# jkPyLatex
 Latex document generation with python
 
 ## Requirements
