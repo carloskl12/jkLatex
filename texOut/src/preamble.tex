@@ -1,0 +1,30 @@
+\documentclass[12,letter,spanish]{article}
+\usepackage[english,spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{./figs/}}
+%%%%%%%%%%%% Configuración de márgenes %%%%%%%%%%%%%%%
+\parskip 10pt
+\oddsidemargin -11mm
+\headheight 50pt
+\headsep 12pt
+\marginparsep 0pt
+\marginparwidth 0pt
+\footskip 20pt
+
+\usepackage[top=30mm, bottom=25mm, left=20mm, right=20mm,top=30mm, bottom=25mm, left=20mm, right=20mm,top=30mm, bottom=25mm, left=20mm, right=20mm,top=30mm, bottom=25mm, left=20mm, right=20mm,top=30mm, bottom=25mm, left=20mm, right=20mm]{geometry}
+\pagestyle{fancy}
+
+\lhead{\small {--- Facultad de  Ciencias Naturales y  Matemáticas \vspace{4pt}}}
+\chead{}
+\rhead{\includegraphics[scale=0.65]{logo.pdf}}
+\lfoot{}
+\cfoot{\rightmark}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%%%%%%%%%%% Declaración de nuevos comandos%%%%%%%%%%%%%
+\newcommand{\abs}[1]{\ensuremath{\left|#1\right|}}

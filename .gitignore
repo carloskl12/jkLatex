@@ -1,0 +1,7 @@
+#Archivo generado por test
+mainPyTeX.tex
+#
+__pycache__/
+*.pyc
+#Ficheros temporales
+*~

@@ -1,0 +1,28 @@
+***********************************
+**      20 Jul 2020 21:20:44     **
+**  Pruebas unitarias iniciadas  **
+logger level: DEBUG
+iniciado en : test.testLatexUtils
+python : 3.7.7 
+jkPyLaTeX: 1.0
+pdfTeX : 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian)
+
+
+%%% TestLatexDoc: Prueba  de uso de LatexDoc.
+
+%%% TestLatexDoc: Prueba  de uso del formato parcial.
+
+%%% TestLatexDoc: Prueba  de uso del parser de comandos.
+
+%%% TestLatexDoc: Prueba  de uso de slices.
+
+%%% TestLatexDoc: Prueba  de uso del formato taller.
+%%% LatexUtils: Prueba  de uso de comandos latex.
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\abs{3x+1}
+\abs{3x+1}\vui
+\abs[option1,option2]{-1}
+vui in pack: True
+"vui" in pack: True
+Declara paquete: \usepackage{miPaquete}
+
