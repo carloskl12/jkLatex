@@ -12,6 +12,7 @@ Generación de documentos en python
 El paquete es desarrollado en python 3 sobre Linux, y requiere:
 * pdflaTeX
 * sympy (para ejecutar el [ejemplo](example/example.py))
+* unittest (para ejecutar los tests)
 
 ## Objetivo de su desarrollo
 Este paquete fué desarrollado con el fin de generar documentos latex
@@ -41,6 +42,10 @@ para cambiar el logo por defecto, se puede ubicar un nuevo logo en la misma carp
 en que está está este archivo, debe tener el nombre logo.pdf (formato pdf).
 
 Para revisar más formas de uso se puede revisar en test el archivo  [testLatexDoc.py](test/testLatexDoc.py)
+
+Si se requiere ejecutar la unidad de test:
+
+	$ python -m unittest test
 
 ## Licencia
 [GNU GENERAL PUBLIC LICENSE](LICENCE)
