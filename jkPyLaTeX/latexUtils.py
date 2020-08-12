@@ -154,7 +154,12 @@ class LatexPackage(object):
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   def add(self, *args):
     '''
-    Agrega un comando al paquete
+    Agrega un comando al paquete, si es un string 
+    se agrega como un comando simple que no requiere 
+    argumentos, si es una tupla, esta debe tener el 
+    formato 
+    (<nombrecmd>, <numero de argumentos>,<información>)
+    
     '''
     command=args[0]
     if len(args)> 1:
@@ -180,7 +185,7 @@ class LatexPackage(object):
     command=args[0]
     if len(args)> 1:
       for cmd in args:
-        self.add(cmd)
+        self.addEnv(cmd)
     else:
       if not isinstance(command,LatexEnvironment):
         if isinstance(command,str):
@@ -191,6 +196,7 @@ class LatexPackage(object):
       self._commands[command.name]=command
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   def __getitem__(self, key):
+    
     return self._commands[key]
 
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

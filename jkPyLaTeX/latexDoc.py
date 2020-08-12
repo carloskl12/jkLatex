@@ -19,6 +19,9 @@ class LatexDoc(object):
   def __init__(self,name,**kwargs):
     self._name=name
     self._fname=None #Nombre del archivo tex de salida
+    self._dirOut='' #Directorio de salida
+    #Indica si se utiliza un template externo para el preámbulo
+    self._externalPreamble=False 
     #Guarda los diferentes contenidos para el preámbulo
     #Con un respectivo orden respecto a la declaración de paquetes
     self._preamble=[]
@@ -100,8 +103,57 @@ class LatexDoc(object):
     for s in args:
       self._s+=s
 
+  def Clear(self):
+    '''
+    Borra todo el contenido
+    '''
+    self._s=''
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  def getTree(self,dirOut):
+  def _makefile(self, target='*.tex',clean=True):
+    '''
+    Crea un makefile para compilar el documento latex 
+    dado por target
+    '''
+    s='# makefile creado por jkPyLaTeX\n'
+    
+    if target =='*.tex':
+      #Compila todo archivo .tex existente
+      s+='ARCHIVOS_TEX:= $(wildcard *.tex)\n\n'
+      s+='COMPILA:= $(patsubst %.tex, pdflatex -shell-escape '
+      s+='-interaction=nonstopmode -halt-on-error %.tex; ,$(ARCHIVOS_TEX))\n\n'
+      s1='compilayborra: $(ARCHIVOS_TEX)\n'
+      s1+='\t$(COMPILA)\n'
+      s1+='\t@make clean\n\n'
+      s2='compila: $(ARCHIVOS_TEX)\n'
+      s2+='\t$(COMPILA)\n'
+    else:
+      s+='ARCHIVO_TEX:= %s\n\n'%target
+      s1='compilayborra: $(ARCHIVO_TEX)\n'
+      s1+='\tpdflatex -shell-escape -interaction=nonstopmode -halt-on-error $(ARCHIVO_TEX)\n'
+      s1+='\t@make clean\n\n'
+      s2='compila: $(ARCHIVO_TEX)\n'
+      s2+='\tpdflatex -shell-escape -interaction=nonstopmode -halt-on-error $(ARCHIVO_TEX)\n'
+    
+    if clean:
+      # Orden de prioridad al llamar make
+      # con s1 de primero se indica que se limpia el directorio
+      # y s2 es una compilación sin borrar
+      s+=s1
+      s+=s2
+    else:
+      s+=s2
+      s+=s1
+    # Declara ficheros ficticios que no se confundan con archivos
+    s+='.PHONY: clean\n\n' 
+    # Se crea el clean, par alos rm se usa un || para evitar
+    # el error cuando no hay archivos que eliminar
+    s+='clean:\n'
+    s+='\trm *.aux || true\n'
+    s+='\trm *.log || true\n'
+    s+='\trm *.out || true\n'
+    return s
+  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  def getTree(self,dirOut,clean=True):
     '''
     Verifica si existen los respectivos
     directorios con el respectivo makefile.
@@ -134,12 +186,8 @@ class LatexDoc(object):
         os.makedirs(srcDir)
       if not os.path.isdir(figsDir):
         os.makedirs(figsDir)
-    if not os.path.exists(dirOut+'/Makefile'):
-      if os.path.exists('Makefile'):
-        copy('Makefile',dirOut)
-      else:
-        makefiledir= os.path.join(dir_path,'Makefile')
-        copy(makefiledir,dirOut)
+
+    
     if not os.path.exists(figsDir+'logo.pdf'):
       if os.path.exists('logo.pdf'):
         copy('logo.pdf',figsDir)
@@ -199,7 +247,7 @@ class LatexDoc(object):
     '''
     tree=self.getTree(fname)
     fname=tree['dirOut']+self._name
-    
+    self._dirOut=tree['dirOut']
     if not ( fname.split(".")[-1]=='tex'):
       fname+=".tex"
     self._fname=fname
@@ -208,6 +256,18 @@ class LatexDoc(object):
     s='%%%%%%%%%%%%%%%%%%%%%\n'
     s+='%%%% LatexDoc v'+self.__version
     s+='\n\\input{%s}'%(dirPreamble)
+    if self._externalPreamble:
+      # Se utiliza para la redefinición de comandos cuando 
+      # se utiliza un preámbulo externo, pues esta parte 
+      # no se tendría en cuenta
+      sRenewCmd=''
+      for rnw in self._renewcmd:
+        sRenewCmd+='%s\n'%rnw
+      if sRenewCmd != '':
+        sMsg='%%%%%%%%%%%% Renombrado de comandos'
+        sMsg+='%%%%%%%%%%%%%\n'
+        sRenewCmd=sMsg+sRenewCmd
+      s+=sRenewCmd
     s+='\n\\begin{document}\n'
     if self._cfg_language != 'english':
       s+='\\selectlanguage{%s}\n'%self._cfg_language
@@ -216,7 +276,7 @@ class LatexDoc(object):
     
     if self._mainSlice !=None:
       s+=self.jointSlice()
-    s+=self._s+'\n'
+    s+=self._s+'\n' #Agrega el contenido generado con __call__
     s+='\\end{document}\n'
     with open(fname,'w') as f:
       f.write(s)
@@ -291,6 +351,8 @@ class LatexDoc(object):
     '''
     s="\\renewcommand{\\%s}{%s}"%(cmdName,value)
     self._renewcmd.append(s)
+    if self._externalPreamble:
+      return
     if not( cmdName in PACKAGES['global'] or cmdName in self._cmd):
       self.useCmd(cmdName)
 
@@ -369,16 +431,26 @@ class LatexDoc(object):
     return s
 
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  def preamble(self,build=False):
+  def preamble(self,build=False, texTemplate=None,append=''):
     '''
     Crea el preámbulo ajustándose a la configuración
-    y los requerimientos del documento
+    y los requerimientos del documento, o se toma 
+    de una plantilla ya existente que se suministra con 
+    texTemplate, 
+    * append: es algo que se puede agregar al final del preambulo si hay un
+      template, en caso contrario se debe usar appendPreamble
     
     Si ya se ha invocado antes se retorna el 
     valor anterior, en caso de requerir
     una nueva genereación del preámbulo 
     se indica mediante build
     '''
+    if texTemplate !=None:
+      with open(texTemplate,'r') as f:
+        self._spreamble=str(f.read())
+      self._sEndPreamble+=append
+      self._externalPreamble=True #Indica que se utilizó un template externo
+      return self._spreamble
     if hasattr(self,'_spreamble') and not build:
       return self._spreamble
     sRenewCmd=''
@@ -387,7 +459,7 @@ class LatexDoc(object):
     if sRenewCmd != '':
       sMsg='%%%%%%%%%%%% Renombrado de comandos'
       sMsg+='%%%%%%%%%%%%%\n'
-      sRenewCmd=sMsg+sNewCmd
+      sRenewCmd=sMsg+sRenewCmd
     
     sNewCmd=''
     for nw in self._newcmd:
@@ -404,7 +476,14 @@ class LatexDoc(object):
     #Una vez se conocen todos los paquetes requeridos
     #se inicia a escribir el preámbulo
     documentclass=LatexCommand('documentclass','',1)
-    opt='%s,%s'%(self._cfg_fontsize, self._cfg_paper)
+    opt=''
+    if self._cfg_fontsize !=None:
+      opt+=self._cfg_fontsize
+    if self._cfg_paper !=None:
+      if len(opt)> 0:
+        opt+=','
+      opt+=self._cfg_paper
+
     if self._cfg_language != 'english' or self._cfg_language != None:
       opt+=','+self._cfg_language
     s=documentclass( (opt,),self._cfg_docclass)+'\n'
@@ -435,6 +514,8 @@ class LatexDoc(object):
     self._spreamble=s
     return s
 
+
+
   def appendPreamble(self,s):
     '''
     Agrega al final de preámbulo
@@ -451,10 +532,40 @@ class LatexDoc(object):
     '''
     self.__docIni=s
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  def genDoc(self, dirOut):
+  def genDoc(self, target=False,clean=True):
     '''
-    Genera el documento latex
+    Genera el documento latex utilizando un makefile, el cual si:
+    * target es False compilará todo archivo tex, en caso contrario, únicamente
+      el que corresponde al actual documento
+    * clean si es true se borrarán los logs y archivos auxialeres al final 
+      de la compilación
+    
+    En los casos en que exista necesidad de compilar dos veces, por ejemplo 
+    cuando se utilizan enlaces, o referencias, se debe utilizar en 
+    la primera vez de compilación clean=False, y en la segunda clean=True.
+    
+    Si se quiere compilar externamente, para compilar sin borrar se utiliza 
+    $ make compila
+    
+    y para el caso de querer compilar eliminando los archivos auxiliares
+    $ make compilayborra
     '''
+    # siempre se genera el makefile
+    # porque se puede cambiar el nombre del archivo
+    # y quedaría compilando otro archivo
+    if isinstance(target,bool):
+      if target:
+        target= self._name
+        if not ( target.split(".")[-1]=='tex'):
+          target+=".tex"
+      else:
+        target='*.tex'
+
+    dirOut=self._dirOut
+    makefiledir= os.path.join(dirOut,'Makefile')
+    with open(makefiledir,'w') as f:
+      f.write(self._makefile(target,clean))
+    
     #obtiene el nombre y directorio donde 
     # se genera la salida
     try:

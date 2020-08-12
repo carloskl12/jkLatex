@@ -6,5 +6,9 @@ from .latexUtils import LatexCommand, LatexEnvironment, LatexPackage
 from .latexDefCmd import CMD_LATEX
 from .latexPackages import PACKAGES
 from .latexDoc import LatexDoc
-from .latexDocTemplate import ldtTaller, ldtParcial, ldtBasicoLogo
+from .latexImg import LatexImg
+from .latexDocTemplate import ldtTaller, ldtParcial, ldtBasicoLogo, litBasico
+from .latexTikz import ShapeTikz, LineTikz, CircleTikz, EllipseTikz, ArcTikz
+from .latexTikz import NodeDrawTikz, RectangleTikz, ScopeTikz, TikzPicture
+from .latexTikz import DrawTikz
 #__all__ = lista de modulos a cargar con import *

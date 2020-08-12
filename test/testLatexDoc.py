@@ -43,7 +43,7 @@ class TestLatexDoc(unittest.TestCase):
     # Guarda el documento
     doc.save('./texOut/')
     # Genera el documento pdf
-    doc.genDoc('./texOut/')
+    doc.genDoc()
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   def test_taller(self):
@@ -72,7 +72,7 @@ class TestLatexDoc(unittest.TestCase):
     # Guarda el documento
     doc.save('./texOut/')
     # Genera el documento pdf
-    doc.genDoc('./texOut/')
+    doc.genDoc()
     
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   def test_parcial(self):
@@ -94,7 +94,7 @@ class TestLatexDoc(unittest.TestCase):
     # Guarda el documento
     doc.save('./texOut/')
     # Genera el documento pdf
-    doc.genDoc('./texOut/')
+    doc.genDoc()
   
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   def test_parser(self):
@@ -107,7 +107,7 @@ class TestLatexDoc(unittest.TestCase):
     # Guarda el documento
     doc.save('./texOut/')
     # Genera el documento pdf
-    doc.genDoc('./texOut/')
+    doc.genDoc()
   
   def test_slice(self):
     logger.info('\n%%% TestLatexDoc: Prueba  de uso de slices.')
@@ -130,5 +130,5 @@ class TestLatexDoc(unittest.TestCase):
       f.write(pytex)
     doc.setMainSlice(fnameMainSlice)
     doc.save('./texOut/')
-    doc.genDoc('./texOut/')
+    doc.genDoc()
     

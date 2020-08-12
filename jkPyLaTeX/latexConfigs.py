@@ -38,6 +38,17 @@ DOC_CFG_TALLER['rfoot']='\\thepage'
 DOC_CFG_TALLER['headrulewidth']='0.4pt'
 DOC_CFG_TALLER['footrulewidth']='0.4pt'
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Configuraciones para trabajar con imágenes
+IMG_CFG_BASE={
+  #'tree':N, No tiene arbol de archivos
+  'docclass':'standalone',
+  #'paper':'letter',  no hay especificación de papel
+  'fontsize':'12',
+  'language':'english',
+}
+
+
 def newDocCfg(cfgName):
   '''
   Función para obtener la configuración base
@@ -48,5 +59,7 @@ def newDocCfg(cfgName):
     return DOC_CFG_BASE.copy()
   elif cfgName=='TALLER':
     return DOC_CFG_TALLER.copy()
-
+  elif cfgName=='IMG_BASE':
+    return IMG_CFG_BASE.copy()
+    
 

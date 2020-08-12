@@ -2,8 +2,22 @@
 Funciones que generan los templates de documentos
 '''
 
-from jkPyLaTeX import LatexDoc, PACKAGES, CMD_LATEX, newDocCfg
+from jkPyLaTeX import LatexDoc, PACKAGES, CMD_LATEX, newDocCfg, LatexImg
 
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+def litBasico(filename):
+  '''
+  lit - LatexImg Template 
+  '''
+  config= newDocCfg('IMG_BASE')
+  doc=LatexImg(filename,**config)
+  doc.appendPreamble('\\usepackage[utf8]{inputenc}')
+  doc.useCmd('draw') #Para invocar tikz
+  return doc
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 def ldtBasicoLogo(filename,titulo=''):
   config= newDocCfg('TALLER')
   config['lfoot']=''
@@ -22,6 +36,8 @@ def ldtBasicoLogo(filename,titulo=''):
   
   return doc
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 def ldtTaller(filename,titulo, asignatura='',fecha='today'):
   config= newDocCfg('TALLER')
   if fecha != 'today':

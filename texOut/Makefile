@@ -1,27 +1,17 @@
-#Macros de make para crear un archivo pdf a partir de archivos latex
-
-
+# makefile creado por jkPyLaTeX
 ARCHIVOS_TEX:= $(wildcard *.tex)
 
-#----------------antepone comando de compilación
-COMPILA:= $(patsubst %.tex, pdflatex -halt-on-error %.tex; ,$(ARCHIVOS_TEX))
+COMPILA:= $(patsubst %.tex, pdflatex -shell-escape -interaction=nonstopmode -halt-on-error %.tex; ,$(ARCHIVOS_TEX))
 
-COMPILA_S:= $(patsubst %.tex, pdflatex -no-shell-escape -halt-on-error %.tex; ,$(ARCHIVOS_TEX))
-
-compilatodo: $(ARCHIVOS_TEX)
-	$(COMPILA)
+compilayborra: $(ARCHIVOS_TEX)
 	$(COMPILA)
 	@make clean
-	@echo "\n Compilados:\n" $(ARCHIVOS_TEX) "\n"
 
-compilaSimple: $(ARCHIVOS_TEX)
-	$(COMPILA_S)
-	$(COMPILA_S)
-	@make clean
-	@echo "\n Compilados:\n" $(ARCHIVOS_TEX) "\n"
-.PHONY: clean cleanAll	#Ficheros ficticios
-#Siempre que se tenga como dependencia se ejecuta, o se llama con make clean
-clean :
-	bash latexClean.sh
-#cleanAll: clean 	#Ejecuta clean, borra el ejecutable, se llama como make cleanAll
+compila: $(ARCHIVOS_TEX)
+	$(COMPILA)
+.PHONY: clean
 
+clean:
+	rm *.aux || true
+	rm *.log || true
+	rm *.out || true

@@ -68,7 +68,7 @@ doc.setMainSlice(fnameMainSlice)
 #Save the files necessary to compile in ./texOut
 doc.save('./texExample/')
 #compile with pdflatex
-doc.genDoc('./texExample/')
+doc.genDoc()
 
 
 

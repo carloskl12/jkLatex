@@ -25,62 +25,31 @@ def addPacks():
     ordLeft=lpackNames[:i]
     ordRight=lpackNames[i+1:]
     PACKAGES[args[0]]=LatexPackage(args[0],args[1], orderLeft=ordLeft,orderRight=ordRight)
-  print('** Se agregaron %i paquetes'%len(PACKAGES))
+  print('** Hay %i paquetes disponibles en jkPyLaTeX'%len(PACKAGES))
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Se agregan en el orden adecuado
-addOrder('babel',
-  'Manejo de idiomas diferentes al inglés'
-  )
-addOrder('inputenc',
-  'Permite usar las tildes y la ñ de forma normal'
-  )
-addOrder('amsmath', 
-  ''
-  )
-addOrder('amsfonts',
-  ''
-  )
-addOrder('amssymb',
-  'Simbolos matemáticos'
-  )
+addOrder('babel', 'Manejo de idiomas diferentes al inglés'   )
+addOrder('inputenc', 'Permite usar las tildes y la ñ de forma normal' )
+addOrder('tikz','Permite hacer gráficos')
+addOrder('amsmath', '')
+addOrder('amsfonts','')
+addOrder('amssymb', 'Simbolos matemáticos')
   
-addOrder('verbatim',
-  'Para agregar código de programas'
-  )
-addOrder('layout', 
-  'Se usa para ver la configuracion de pagina .'
-  )
-addOrder('multicol', 
-  'varias columnas'
-  )
-addOrder('fancyhdr',
-  'Encabezados, pie de páginas y notas marginales'
-  )
-addOrder('rawfonts',
-  ''
-  )
-addOrder('graphicx',
-  'Solo si se compila con pdflatex'
-  )
+addOrder('verbatim',   'Para agregar código de programas'  )
+addOrder('layout', 'Se usa para ver la configuracion de pagina .' )
+addOrder('multicol',    'varias columnas'  )
+addOrder('fancyhdr', 'Encabezados, pie de páginas y notas marginales' )
+addOrder('rawfonts',   ''  )
+addOrder('graphicx','Solo si se compila con pdflatex' )
 
-addOrder('longtable',
-  'Tablas largas'
-  )
+addOrder('longtable',   'Tablas largas'  )
 
-addOrder('tabularx',
-  'Tablas '
-  )
-addOrder('multirow',
-  ''
-  )
-addOrder('esvect', 
-  'Para vectores con vv{vector}'
-  )
-addOrder('geometry',
-  comment='Define las margenes del documento'
-  )
-
+addOrder('tabularx',   'Tablas '  )
+addOrder('multirow',  '' )
+addOrder('esvect', 'Para vectores con vv{vector}'  )
+addOrder('geometry', comment='Define las margenes del documento' )
+addOrder('xcolor','Definición de colores')
 addPacks()
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -123,7 +92,22 @@ addGlobalEnv('center')
 addGlobalEnv('enumerate')
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#%%% Agrega comandos a paquetes
+#%%% Agrega comandos a paquetes, cada parámetro se puede interpretar
+# como un simple comando sin argumentos si es un string
+# si es una lista, debe tener 3 elementos,
+# (<nombrecmd>, <numero de argumentos>,<información>)
+# Hay comandos con opciones, para ellos no hay necesidad de indicar
+# nada adicional, pueden ser comandos sin argumentos
+PACKAGES['tikz'].add(
+  'draw', 'fill', 'usetikzlibrary'
+)
+PACKAGES['tikz'].addEnv(
+  'tikzpicture', 'scope'
+)
+
+#\definecolor{name}{model}{color-spec} \definecolor{micolor}{HTML}{FF3344}
+PACKAGES['xcolor'].add( ('definecolor', 3,'define un color nuevo'))
+
 PACKAGES['amsmath'].add(
   'sum',
   'notag','dotsc','dotsb',

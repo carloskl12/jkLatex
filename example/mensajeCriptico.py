@@ -1,5 +1,5 @@
 '''
-En este ejemplo  se muestra como se puede facilitar ciertas tareas de 
+En este ejemplo  se muestra como se pueden facilitar ciertas tareas de 
 dibujo utilizando python para coordinar el gráfico de un mensaje 
 cifrado que utiliza un conjunto de carácteres particulares, lo que 
 se busca con el script es generar de manera rápida visualizaciones de 
