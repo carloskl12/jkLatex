@@ -301,6 +301,8 @@ class DrawTikz(ShapeTikz):
 class ScopeTikz(ShapeTikz):
   def call(self, content=''):
     '''
+    Para utilizar una instancia se debe llamar dos veces scope()(<argumentos>).
+    
     En la primera llamada apaga el entorno TikzPicture para que 
     no se duplique el contenido, y en la segunda llamada ya 
     se prende el entorno, y se vuelve _first_call a True
