@@ -79,6 +79,9 @@ class MathSet (object):
       return str(self._set)
     return '{}'
 
+  def __list__(self):
+    return list(self._set)
+
 def test():
   A=MathSet(1,2,3,4)
   B=MathSet(3,2,4)
