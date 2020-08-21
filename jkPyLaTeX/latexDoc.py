@@ -93,7 +93,9 @@ class LatexDoc(object):
   def content(self):
     return self._s
     
-
+  @property
+  def dirOut(self):
+    return self._dirOut
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   def __call__(self,*args):
     '''
