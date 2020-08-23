@@ -227,7 +227,7 @@ class LatexDoc(object):
     para guardar obtener un
     fragmento tex compilable
     '''
-    p = re.compile(r'\\usepytex{([a-zA-Z_]+[0-9]*)}')
+    p = re.compile(r'\\usepytex{([a-zA-Z_]+[0-9a-zA-Z_]*)}')
     mainS='%%%%% main slice \n'
     with open(self._mainSlice,'r') as f:
       for line in  f.readlines():
