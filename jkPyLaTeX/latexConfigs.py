@@ -46,6 +46,7 @@ IMG_CFG_BASE={
   #'paper':'letter',  no hay especificación de papel
   'fontsize':'12',
   'language':'english',
+  'paper':'tikz' #Hace que se genere una página por cada entorno tikz
 }
 
 
