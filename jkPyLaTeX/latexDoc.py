@@ -228,10 +228,14 @@ class LatexDoc(object):
     fragmento tex compilable
     '''
     p = re.compile(r'\\usepytex{([a-zA-Z_]+[0-9a-zA-Z_]*)}')
+    pcomment=re.compile(r'^[ ]*[%]')
     mainS='%%%%% main slice \n'
     with open(self._mainSlice,'r') as f:
       for line in  f.readlines():
         newLine=line
+        if pcomment.match(line):
+          mainS+=newLine
+          continue
         for match in p.finditer(line):
           sliceName=match.group(1)
           if not sliceName in self._slice:
