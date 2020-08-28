@@ -13,7 +13,6 @@ def litBasico(filename):
   config= newDocCfg('IMG_BASE')
   doc=LatexImg(filename,**config)
   doc.appendPreamble('\\usepackage[utf8]{inputenc}')
-  doc.useCmd('draw') #Para invocar tikz
   return doc
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
