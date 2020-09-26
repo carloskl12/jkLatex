@@ -152,7 +152,7 @@ PACKAGES['amsmath'].addEnv(
   'vmatrix','Vmatrix' #|x|  ||x||
 )
 PACKAGES['amsfonts'].add(('mathbb',1,''))
-PACKAGES['amssymb'].add('measuredangle','imath','jmath')
+PACKAGES['amssymb'].add('measuredangle','imath','jmath','subset', 'subseteq')
 PACKAGES['multirow'].add(('multirow',3,''))
 PACKAGES['esvect'].add(('vv',1,''))
 PACKAGES['graphicx'].add(('includegraphics',1,''))
