@@ -136,7 +136,7 @@ tex que se ha de compilar luego. Para mas detalles se pueden revisar los
 ejemplos de: figBasica.py, conjuntos.py, mensajeCriptico.py.
 
 ## Licencia
-[GNU GENERAL PUBLIC LICENSE](LICENCE)
+[GNU GENERAL PUBLIC LICENSE](LICENSE)
 
 
 
