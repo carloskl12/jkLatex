@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-JKPYLATEX_VERSION='1.0'
+__version__='2.0.0'
+JKPYLATEX_VERSION=__version__
 from .latexConfigs import newDocCfg
 from .latexUtils import LatexCommand, LatexEnvironment, LatexPackage
 from .latexDefCmd import CMD_LATEX

@@ -48,6 +48,24 @@ Si se requiere ejecutar la unidad de test:
 
 	$ python -m unittest test
 
+
+### trabajo como paquete
+Para utilizar el paquete se puede utilizar en modo desarrollo o instalarlo
+directamente como un paquete. El modo desarrollo es útil si se quieren hacer 
+algunos ajustes particulares en el paquete, en dicho caso hay que descargar 
+y descomprimir el paquete en el directorio que se quiera trabajar y ejecutar
+este modo de instalación mediante el script setup.py:
+
+			$ python setup.py develop
+
+Para desinstalarlo:
+
+			$ python setup.py develop --uninstall
+
+Finalmente si se quiere instalarlo como una librería que no se quiere modificar
+
+			$ python setup.py install
+
 ## Generación de gráficos
 La generación de gráficos tiene un interesante potencial al integrarse con 
 python, se tienen disponibles diferentes clases que generan una capa de 

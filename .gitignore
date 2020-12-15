@@ -5,3 +5,9 @@ __pycache__/
 *.pyc
 #Ficheros temporales
 *~
+
+
+# Archivos creados por setup
+build/
+dist/
+jkPyLaTeX.egg-info/

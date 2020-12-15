@@ -84,6 +84,9 @@ addGlobalCmd('newpage')
 addGlobalCmd('today')
 
 
+addGlobalCmd('left')
+addGlobalCmd('right')
+
 addGlobalCmd('hat')
 addGlobalCmd('circ')
 
