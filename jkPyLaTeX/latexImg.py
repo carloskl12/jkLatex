@@ -7,8 +7,9 @@ from shutil import copyfile,copy
 from jkPyLaTeX import LatexCommand , LatexPackage , PACKAGES
 from jkPyLaTeX import CMD_LATEX, LatexDoc
 '''
-El modo de uso consiste en declarar los comandos a usar y la 
-clase se encargaría de administrar los paquetes
+Esta clase se crea con el fin de generar documentos que corresponden
+a imágenes, por lo tanto no utiliza el arbol de ficheros de un proyecto
+trabajado como lo es LatexDoc
 '''
 
 class LatexImg(LatexDoc):
