@@ -26,3 +26,59 @@ vui in pack: True
 "vui" in pack: True
 Declara paquete: \usepackage{miPaquete}
 
+***********************************
+**      23 Jan 2021 15:26:45     **
+**  Pruebas unitarias iniciadas  **
+logger level: DEBUG
+iniciado en : test.testLatexUtils
+python : 3.7.9 
+jkPyLaTeX: 2.0.0
+pdfTeX : 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian)
+
+
+%%% TestLatexDoc: Prueba  de uso de LatexDoc.
+
+%%% TestLatexDoc: Prueba  de uso del formato parcial.
+
+%%% TestLatexDoc: Prueba  de uso del parser de comandos.
+
+%%% TestLatexDoc: Prueba  de uso de slices.
+
+%%% TestLatexDoc: Prueba  de uso del formato taller.
+%%% LatexUtils: Prueba  de uso de comandos latex.
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\abs{3x+1}
+\abs{3x+1}\vui
+\abs[option1,option2]{-1}
+vui in pack: True
+"vui" in pack: True
+Declara paquete: \usepackage{miPaquete}
+
+***********************************
+**      23 Jan 2021 15:30:04     **
+**  Pruebas unitarias iniciadas  **
+logger level: DEBUG
+iniciado en : test.testLatexUtils
+python : 3.7.9 
+jkPyLaTeX: 2.0.0
+pdfTeX : 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian)
+
+
+%%% TestLatexDoc: Prueba  de uso de LatexDoc.
+
+%%% TestLatexDoc: Prueba  de uso del formato parcial.
+
+%%% TestLatexDoc: Prueba  de uso del parser de comandos.
+
+%%% TestLatexDoc: Prueba  de uso de slices.
+
+%%% TestLatexDoc: Prueba  de uso del formato taller.
+%%% LatexUtils: Prueba  de uso de comandos latex.
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\abs{3x+1}
+\abs{3x+1}\vui
+\abs[option1,option2]{-1}
+vui in pack: True
+"vui" in pack: True
+Declara paquete: \usepackage{miPaquete}
+

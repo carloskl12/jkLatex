@@ -38,7 +38,7 @@ class  ShapeTikz(object):
     self._opt_opacity=''
     
     #patrones de linea
-    self._opt_line_patern=''
+    self._opt_line_pattern=''
     self._opt_dash_pattern=''
     #El inicio puede ser <
     self._opt_start_marker=''
@@ -99,11 +99,11 @@ class  ShapeTikz(object):
         so+=', even odd rule';
       else:
         raise Exception( 'fill_rule: solo puede ser "even odd rule"')
-    if self._opt_line_patern !='':
-      if self._opt_line_patern in self._line_pattern:
+    if self._opt_line_pattern !='':
+      if self._opt_line_pattern in self._line_pattern:
         so+=', dashed'
       else:
-        raise Exception('Error: line pattern "%s" invalid'%self._opt_line_patern)
+        raise Exception('Error: line pattern "%s" invalid'%self._opt_line_pattern)
     if self._opt_clip !='':
       if so !='':
         raise Exception('clip debe ser un parámetro único')
