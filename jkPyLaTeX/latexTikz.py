@@ -35,6 +35,10 @@ class  ShapeTikz(object):
     self._opt_draw_color=''
     self._opt_fill_color=''
     self._opt_color=''
+    self._opt_top_color=''
+    self._opt_bottom_color=''
+    self._opt_left_color=''
+    self._opt_right_color=''
     self._opt_opacity=''
     
     #patrones de linea
@@ -78,7 +82,9 @@ class  ShapeTikz(object):
     so=self._opt_start_marker+self._opt_mid_marker+self._opt_end_marker
     #Opciones básicas de asignar valor
     for opt in ('line width', 'opacity', 'dash pattern',
-      'pattern', 'pattern color', 'rotate', 'yshift','xshift',
+      'pattern', 'pattern color','top color', 'left color',
+      'right color', 'bottom color',
+       'rotate', 'yshift','xshift',
       'line cap','line join', 'scale'):
       optName= '_opt_'+opt.replace(' ','_')
       value= getattr(self, optName)
