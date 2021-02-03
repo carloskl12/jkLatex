@@ -202,6 +202,9 @@ class LineTikz(ShapeTikz):
           contiguos= not contiguos
           if  not contiguos:
             continue
+      elif x == None:
+        #Inicia con un vacío
+        continue
       if isinstance(x,int):
         s+='(%i,'%x
       elif isinstance(x,float):
