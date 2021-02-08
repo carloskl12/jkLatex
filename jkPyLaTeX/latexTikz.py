@@ -68,7 +68,7 @@ class  ShapeTikz(object):
       if hasattr(self,nameParam):
         setattr(self,nameParam,v)
       else:
-        raise Exception("Error: %s don't have the param '%s'."%(k,type(self).__name__))
+        raise Exception("Error: %s don't have the param '%s'."%(type(self).__name__),k)
     self.GenOptions()
 
   def GenOptions(self):
