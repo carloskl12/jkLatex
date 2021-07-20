@@ -13,4 +13,5 @@ from .latexTikz import ShapeTikz, LineTikz, CircleTikz, EllipseTikz, ArcTikz
 from .latexTikz import NodeDrawTikz, RectangleTikz, ScopeTikz, TikzPicture
 from .latexTikz import DrawTikz
 from .plotTikz import PlotTikz
+from .boxFlowChart import BoxFlowChart
 #__all__ = lista de modulos a cargar con import *
