@@ -386,7 +386,7 @@ class PlotTikz(object):
         
         Pasa el número al factor de notación científica con un 
         dígito entero, el cual se redondea hacia el entero próximo mayor,
-        y se vuelve a escalar a los órdones de magnitud originales
+        y se vuelve a escalar a los órdenes de magnitud originales
         
         to_decimal indica si se genera el número como un valor decimal
         '''
