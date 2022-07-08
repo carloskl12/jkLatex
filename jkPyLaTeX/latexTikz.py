@@ -61,6 +61,8 @@ class  ShapeTikz(object):
     
     self._opt_scale=''
     self._opt_clip=''
+    
+    self._opt_options="" #especial que se agrega al final
     self.SetOptions(**kwargs)
 
   def SetOptions(self,**kwargs):
@@ -115,6 +117,9 @@ class  ShapeTikz(object):
       if so !='':
         raise Exception('clip debe ser un parámetro único')
       so+=', clip'
+    
+    if self._opt_options != "":
+      so+=","+self._opt_options
     if so != '':
       if so[0]==',':
         so=so[1:]#Elimina si hay una coma extra
