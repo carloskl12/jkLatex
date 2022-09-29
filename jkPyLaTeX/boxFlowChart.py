@@ -146,7 +146,7 @@ class BoxFlowChart(object):
         # Identifica si se requiere trazar una linea o no
         
         if cmd[0] not in self.modo:
-            raise Exception(f"El comando '{cmd[0]}' no es válido ")
+            raise Exception(f"El comando '{cmd[0]}' no es válido, modos válidos {self.modo}")
         # Lista que almacena los movimientos, al inicio obtiene la coordenada
         # según la caja de referencia
         pos0 =  LRUD[ cmd[1][0] ]
@@ -203,7 +203,7 @@ class BoxFlowChart(object):
         se crean los colores en el preámbulo
         '''
         #defineColor=self.fig.useCmd('definecolor')
-        s='\\usetikzlibrary{arrows}'
+        s='\n\\usetikzlibrary{arrows}'
         for style , value in self.dicBoxStyle.items():
             fgColour, bgColour = value
             s+="\n\\definecolor{Light%s}{HTML}{%s}"%(style, fgColour[1:])

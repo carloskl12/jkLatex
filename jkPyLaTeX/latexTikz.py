@@ -271,13 +271,17 @@ class ArcTikz(ShapeTikz):
     #s=self._options
     #Centro
     xc,yc= posInit
+    s = ""
     if initAsCenter:
+      s = '(%s,%s) -- '%(str(xc),str(yc))
       radAngle=startAngle*math.pi/180
       xc+=math.cos(radAngle)*radius
       yc+=math.sin(radAngle)*radius
-    s='(%s,%s) arc '%(str(xc),str(yc))
+    s+='(%s,%s) arc '%(str(xc),str(yc))
     #radio
     s+='(%s:%s : %s) '%(str(startAngle), str(endAngle), str(radius) )
+    if initAsCenter:
+      s+= " cycle"
     return s
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

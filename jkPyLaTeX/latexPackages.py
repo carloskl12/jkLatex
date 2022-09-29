@@ -35,26 +35,36 @@ addOrder('tikz','Permite hacer gráficos')
 addOrder('amsmath', '')
 addOrder('amsfonts','')
 addOrder('amssymb', 'Simbolos matemáticos')
-  
+addOrder('mathtools','Mejora amsmath')
+addOrder("xparse","Para utilizar NewDocumentCommand")
 addOrder('verbatim',   'Para agregar código de programas'  )
 addOrder('layout', 'Se usa para ver la configuracion de pagina .' )
 addOrder('multicol',    'varias columnas'  )
 addOrder('fancyhdr', 'Encabezados, pie de páginas y notas marginales' )
 addOrder('rawfonts',   ''  )
 addOrder('graphicx','Solo si se compila con pdflatex' )
-
+addOrder('hyperref', 'Para utilizar vínculos')
+addOrder('array','Mejora tabular y array')
+addOrder('booktabs','Ayuda a crear lineas mejor personalizadas')
 addOrder('longtable',   'Tablas largas'  )
+addOrder('colortab','')
+addOrder('colortbl','')
 
 addOrder('tabularx',   'Tablas '  )
+addOrder('tabularray',   'Tablas con centrado vertical, colores '  )
+
 addOrder('multirow',  '' )
 addOrder('esvect', 'Para vectores con vv{vector}'  )
 addOrder('geometry', comment='Define las margenes del documento' )
 addOrder('xcolor','Definición de colores')
+addOrder('arydshln','Denotar submatrices')
+addOrder('enumitem','aumenta las opciones para enumerate e itemize')
 addPacks()
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 PACKAGES['inputenc'].addOption('utf8')
 PACKAGES['graphicx'].addOption('pdftex')
+
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%% Agrega comandos globales
@@ -78,6 +88,7 @@ addGlobalCmd('em')
 addGlobalCmd('bf')
 addGlobalCmd('small')
 
+addGlobalEnv('hspace')
 addGlobalCmd('vspace')
 addGlobalCmd('thepage')
 addGlobalCmd('newpage')
@@ -90,9 +101,14 @@ addGlobalCmd('right')
 addGlobalCmd('hat')
 addGlobalCmd('circ')
 
+addGlobalCmd('rightarrow')
+
 addGlobalEnv('equation')
 addGlobalEnv('center')
 addGlobalEnv('enumerate')
+
+
+
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%% Agrega comandos a paquetes, cada parámetro se puede interpretar
@@ -154,11 +170,64 @@ PACKAGES['amsmath'].addEnv(
   'pmatrix','bmatrix', 'Bmatrix', #(x) [x] {x}
   'vmatrix','Vmatrix' #|x|  ||x||
 )
-PACKAGES['amsfonts'].add(('mathbb',1,''))
-PACKAGES['amssymb'].add('measuredangle','imath','jmath','subset', 'subseteq')
+PACKAGES['colortab'].add(
+    'coloralign',
+    'CC', #Color cells pra cajas
+    'ECC', # End color cells para cajas
+    'LCC', #para entornos como tabular se cambia el CC
+    'LC', # Para longtable, en cambio de LCC
+     'LCi', 'LCii', 'LCiii', 'LCz','LColors', 
+)
+
+PACKAGES['colortbl'].add(
+    'rowcolor', 'columncolor', 'cellcolor', 'arrayrulecolor', 
+    'doublerulesepcolor', 
+)
+
+PACKAGES['xcolor'].add(
+    'textcolor'
+)
+
+PACKAGES['arydshln'].add(
+    'hdashline',
+    'cdashline',
+    'firsthdashline',
+    'lasthdashline',
+)
+PACKAGES['mathtools'].add(
+    'SwapAboveDisplaySkip', #Evita dar un espacio adicional al pasar a display 
+    ('mathllap',1,''),
+    ('mathrlap',1,''),
+    ('mathmbox',1,''),
+    ('mathclap',1,''),
+    ('mathmakebox',1,''),
+    ('cramped',1,'ajusta superíndices y subíndices de manera más compacta'),
+    ('crampedllap',1,''),
+    ('crampedrlap',1,''),
+    ('crampedclap',1,''),
+    ('smashoperator',1,''),
+    ('adjustlimits',1,''),
+    
+)
+PACKAGES['amsfonts'].add(('mathbb',1,''), ('mathbf',1,''))
+PACKAGES['amssymb'].add(
+    'measuredangle','imath','jmath','subset', 'subseteq',
+    'varnothing',
+)
 PACKAGES['multirow'].add(('multirow',3,''))
 PACKAGES['esvect'].add(('vv',1,''))
 PACKAGES['graphicx'].add(('includegraphics',1,''))
+
+PACKAGES['hyperref'].add(('url',1,''))
+
+PACKAGES['array'].add(
+    'extrarowheight', 'newcolumntype', 'showcols',
+    'firsthline', 'lasthline', 'extratabsurround',
+    'arraybackslash', 'extrarowheight', 'multicolumn',
+)
+PACKAGES['booktabs'].add( 
+    'toprule', 'midrule', 'bottomrule', 'cmidrule'
+)
 PACKAGES['multicol'].addEnv('multicols')
 PACKAGES['fancyhdr'].add(
   ('pagestyle',1,''),
@@ -168,10 +237,15 @@ PACKAGES['fancyhdr'].add(
   ('lfoot',1,''),
   ('cfoot',1,''),
   ('rfoot',1,''),
+  ('fancyhead',1,''),
   'headrulewidth',
   'footrulewidth'
 )
 
 PACKAGES['longtable'].add('longtable')
 PACKAGES['tabularx'].add('tabularx')
+PACKAGES['tabularray'].add('tblr')
+
+PACKAGES['enumitem'].add('setlist')
+PACKAGES['xparse'].add('NewDocumentCommand')
 

@@ -76,6 +76,7 @@ class LatexDoc(object):
     self._cfg_headrulewidth=None
     self._cfg_footrulewidth=None
     
+    self._cfg_debug= False
     #\usepackage[top=30mm, bottom=25mm, left=20mm, right=20mm]{geometry}
     
     for k, v in kwargs.items():
@@ -117,7 +118,7 @@ class LatexDoc(object):
     dado por target
     '''
     s='# makefile creado por jkPyLaTeX\n'
-    
+    s3=''
     if target =='*.tex':
       #Compila todo archivo .tex existente
       s+='ARCHIVOS_TEX:= $(wildcard *.tex)\n\n'
@@ -135,7 +136,10 @@ class LatexDoc(object):
       s1+='\t@make clean\n\n'
       s2='compila: $(ARCHIVO_TEX)\n'
       s2+='\tpdflatex -shell-escape -interaction=nonstopmode -halt-on-error $(ARCHIVO_TEX)\n'
-    
+      
+      aux = os.path.splitext(target)[0]+'.aux'
+      s3="bib: %s\n"% aux
+      s3+="\tbibtex %s\n"%aux
     if clean:
       # Orden de prioridad al llamar make
       # con s1 de primero se indica que se limpia el directorio
@@ -145,6 +149,9 @@ class LatexDoc(object):
     else:
       s+=s2
       s+=s1
+    # agrega el comando para bibtex
+    s+= s3
+    
     # Declara ficheros ficticios que no se confundan con archivos
     s+='.PHONY: clean\n\n' 
     # Se crea el clean, par alos rm se usa un || para evitar
@@ -313,12 +320,19 @@ class LatexDoc(object):
         if optGeometry !='':
           optGeometry+=', '
         optGeometry+='%s=%s'%(cfg,cfgV)
+    if self._cfg_debug:
+      print('geometry opt', optGeometry)
     if optGeometry != '':
       if not( 'geometry' in self._packs):
         self._packs['geometry']=PACKAGES['geometry']
       self._packs['geometry'].addOption(optGeometry)
+      if self._cfg_debug:
+        print('geometry available', 'geometry' in self._packs)
     if s != '':
       s='%%%%%%%%%%%% Configuración de márgenes %%%%%%%%%%%%%%%\n'+s
+    
+    if self._cfg_debug:
+        print(' margenes:', s)
     return s
 
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -385,7 +399,8 @@ class LatexDoc(object):
     p = re.compile(r'\\([a-zA-Z]+)')
     commands=[]
     for match in p.finditer(sentence):
-      print( 'result:',match.group(1))
+      if self._cfg_debug:
+        print( 'result:',match.group(1))
       commands.append(match.group(1))
     
     for cmdName in commands:
@@ -413,27 +428,33 @@ class LatexDoc(object):
     Genera la configuración del estilo de página 
     utilizando fancyhdr
     '''
+    
+    
     s=''
+    if 'geometry' in self._packs:
+      s=self._packs['geometry']()
+    
+    sfancy=''
     for cfg in ('lhead','chead','rhead', 
     'lfoot','cfoot', 'rfoot'):
       cfgN='_cfg_'+cfg
       cfgV=getattr(self,cfgN)
       if cfgV != None:
-        s+='\\%s{%s}\n'%(cfg,cfgV)
-    if s!='':
+        sfancy+='\\%s{%s}\n'%(cfg,cfgV)
+    
+    if sfancy!='':
       #Activa para que los encabezado y pie de páginas
       #sean efectivos
-      stmp=''
-      if 'geometry' in self._packs:
-        stmp=self._packs['geometry']()
-      s=stmp+'\\pagestyle{fancy}\n\n'+s
+      s+='\\pagestyle{fancy}\n\n'+sfancy
     for cfg in ('headrulewidth','footrulewidth'):
       cfgN='_cfg_'+cfg
       cfgV=getattr(self,cfgN)
       if cfgV != None:
         s+='\\renewcommand{\\%s}{%s}\n'%(cfg,cfgV)
-    if s!='' and not( 'fancyhdr' in self._packs) :
+    if sfancy!='' and not( 'fancyhdr' in self._packs) :
         self._packs['fancyhdr']=PACKAGES['fancyhdr']
+    if self._cfg_debug:
+        print("pagestyle:%%%%%%%%%%%%%%%%%%%\n",s)
     return s
 
   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
