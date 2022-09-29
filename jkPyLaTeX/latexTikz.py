@@ -281,7 +281,7 @@ class ArcTikz(ShapeTikz):
     #radio
     s+='(%s:%s : %s) '%(str(startAngle), str(endAngle), str(radius) )
     if initAsCenter:
-      s+= " cycle"
+      s+= "-- cycle"
     return s
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
