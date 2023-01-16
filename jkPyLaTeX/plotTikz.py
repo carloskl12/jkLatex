@@ -62,7 +62,9 @@ class PlotTikz(object):
         # ancho del texto de las leyendas
         self.legends_text_width = 0.6
         
-        # posición de las leyendas, none, hace que se ubiquen por defecto
+        # posición de las leyendas, none hace que se ubiquen por defecto
+        # los valores son relativos al ancho y alto de la gráfica, por tanto
+        # son valores de 0 a 1
         self.legends_text_pos = None
         # escala del texto (mas pequeño del normal)
         self.legends_text_scale = 0.7 
@@ -320,6 +322,17 @@ class PlotTikz(object):
                 pos = Vector( self.width-w, self.height)
             else:
                 a,b = self.legends_text_pos
+                a = a*self.width
+                b = b*self.height
+                if a < 0:
+                    a = 0
+                if a > self.width -w:
+                    a = self.width - w
+                
+                if b < h:
+                    b = h
+                if b > self.height:
+                    b = self.height
                 pos = Vector(a, b)
         else:
             pos = Vector(pos[0],pos[1])
