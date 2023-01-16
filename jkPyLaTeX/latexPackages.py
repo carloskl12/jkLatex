@@ -246,6 +246,6 @@ PACKAGES['longtable'].add('longtable')
 PACKAGES['tabularx'].add('tabularx')
 PACKAGES['tabularray'].add('tblr')
 
-PACKAGES['enumitem'].add('setlist')
+PACKAGES['enumitem'].add('setlist', 'roman')
 PACKAGES['xparse'].add('NewDocumentCommand')
 
