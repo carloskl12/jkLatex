@@ -597,7 +597,8 @@ class LatexDoc(object):
     # se genera la salida
     try:
       #Ejecuta make sobre el directorio especificado
-      s=subprocess.check_output("make -C "+dirOut,shell=True,stderr=subprocess.STDOUT)
+      s=subprocess.check_output("make -C " +
+       dirOut,shell=True,stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
       #Si se genera un error se imprime la información
       raise RuntimeError(
