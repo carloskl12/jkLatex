@@ -272,7 +272,7 @@ class PlotTikz(object):
             self.Draw_title(title)
     
     def numToStr(self, number):
-        return str(number).replace("-","−")
+        return "$"+str(number)+"$"
     
     #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     def Draw_xlabel(self, label, options = '', xoff = 0, yoff = 0, pos = None):
