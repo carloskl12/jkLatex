@@ -247,7 +247,7 @@ class PlotTikz(object):
             x = ftx( float( xmintk) )
             if major_grid : self.tool_line_major_grid([(x,0),(x,self.height)])
             line([(x,0), (x,l2), (None,None), (x,self.height), (x,self.height-l2)])
-            if xticklabel : node((x,-.3), str(xmintk))
+            if xticklabel : node((x,-.3), self.numToStr(xmintk))
             xmintk += major_x_thick
         # Dibuja eje vertical
         while(ymintk2 < self.ymax):
@@ -259,7 +259,7 @@ class PlotTikz(object):
             y = fty( float( ymintk ) )
             if major_grid : self.tool_line_major_grid([(0,y),(self.width, y)])
             line( [(0,y),(l2,y), (None,None), (self.width,y), (self.width-l2,y)])
-            if yticklabel : node((-0.5,y), str(ymintk) )
+            if yticklabel : node((-0.5,y), self.numToStr(ymintk) )
             ymintk += major_y_thick
         
         self.tool_rect_bounds( (0,0), (self.width,self.height) )
@@ -270,6 +270,10 @@ class PlotTikz(object):
             self.Draw_ylabel(ylabel)
         if title != '':
             self.Draw_title(title)
+    
+    def numToStr(self, number):
+        return str(number).replace("-","−")
+    
     #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     def Draw_xlabel(self, label, options = '', xoff = 0, yoff = 0, pos = None):
         '''
