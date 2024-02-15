@@ -50,6 +50,8 @@ addOrder('longtable',   'Tablas largas'  )
 addOrder('colortab','')
 addOrder('colortbl','')
 
+addOrder('cancel', 'Para indicar que se cancela')
+
 addOrder('tabularx',   'Tablas '  )
 addOrder('tabularray',   'Tablas con centrado vertical, colores '  )
 
@@ -126,6 +128,8 @@ PACKAGES['tikz'].addEnv(
 
 #\definecolor{name}{model}{color-spec} \definecolor{micolor}{HTML}{FF3344}
 PACKAGES['xcolor'].add( ('definecolor', 3,'define un color nuevo'))
+
+PACKAGES['cancel'].add( ('cancel', 1, 'Indica cancelar una expresión'))
 
 PACKAGES['amsmath'].add(
   'sum',
